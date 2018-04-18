@@ -1,0 +1,67 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Intro to ITWS Group Project</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <style>
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    div#users-contain { width: 350px; margin: 20px 0; }
+    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+  </style>
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="project.js"></script>
+</head>
+<body>
+ 
+<div id="dialog-form" title="Create new task">
+  <p class="validateTips">All form fields are required.</p>
+ 
+  <form>
+    <fieldset>
+      <label for="name">Task Name</label>
+      <input type="text" name="name" id="name" value="Default Task" class="text ui-widget-content ui-corner-all">
+      <label for="time">Time Allocated</label>
+      <input type="text" name="time" id="time" value="8" class="text ui-widget-content ui-corner-all">
+      <label for="descrip">Descriptions</label>
+      <input type="descrip" name="descrip" id="descrip" value="xxxxxxx" class="text ui-widget-content ui-corner-all">
+ 
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+ 
+ 
+<div id="users-contain" class="ui-widget">
+  <h1>Existing Users:</h1>
+  <table id="users" class="ui-widget ui-widget-content">
+    <thead>
+      <tr class="ui-widget-header ">
+        <th>Name</th>
+        <th>Time</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Some Random Task</td>
+        <td>80</td>
+        <td>Sample task meant to show you guys what a block looks like.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<button id="create-user">Create new task</button>
+</body>
+</html>

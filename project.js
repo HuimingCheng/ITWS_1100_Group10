@@ -76,20 +76,26 @@
     function addUser() {
       var valid = true;
       allFields.removeClass( "ui-state-error" );
- 
+      tasks = document.getElementById("users-contain");
       valid = valid && checkLength( name, "username", 3, 16 );
-      valid = valid && checkLength( time, "time", 6, 80 );
-      valid = valid && checkLength( descrip, "descrip", 5, 16 );
+      // valid = valid && checkLength( time, "time", 6, 80 );
+      // valid = valid && checkLength( descrip, "descrip", 5, 16 );
  
       // valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
       // valid = valid && checkRegexp( time, emailRegex, "eg. 340" );
  
       if ( valid ) {
-        $( "#users tbody" ).append( "<tr>" +
-          "<td>" + name.val() + "</td>" +
-          "<td>" + time.val() + "</td>" +
-          "<td>" + descrip.val() + "</td>" +
-        "</tr>" );
+        // $( "#users tbody" ).append( "<tr>" +
+        //   "<td>" + name.val() + "</td>" +
+        //   "<td>" + time.val() + "</td>" +
+        //   "<td>" + descrip.val() + "</td>" +
+        // "</tr>" );
+        $("#users-contain").append("<div class=\"events.\"> <h3>"+name.val()+"</h3> </div>");
+        $("#users-contain").append('<div class="light-grey">'+
+    '<div id="myBar"  style="height:24px;width:0"></div>'+
+  '</div>'+
+  '<br>'+
+  '<button class="start-task" onclick="move()">Click Me</button>' );
         dialog.dialog( "close" );
       }
       return valid;
@@ -101,7 +107,7 @@
       width: 350,
       modal: true,
       buttons: {
-        "Create an account": addUser,
+        "Create a task": addUser,
         Cancel: function() {
           dialog.dialog( "close" );
         }

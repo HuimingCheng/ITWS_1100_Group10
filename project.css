@@ -47,3 +47,11 @@ body {font-family: Arial, Helvetica, sans-serif;}
 	height: 15%;
 	color: #FEF968;
 }
+
+#worldClock {
+	text-align: center;
+	font-size: 100px;
+}
+#countDown {
+	text-align: center;
+}

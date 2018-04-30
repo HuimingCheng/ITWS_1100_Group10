@@ -114,3 +114,11 @@ fieldset { padding:0; border:0; margin-top:25px; }
 	height: 15%;
 	color: #FEF968;
 }
+
+#worldClock {
+	text-align: center;
+	font-size: 100px;
+}
+#countDown {
+	text-align: center;
+}

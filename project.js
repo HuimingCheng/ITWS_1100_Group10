@@ -1,48 +1,38 @@
-// function newForm(){
-
-//     // Get the modal
-//     var modal = document.getElementById('myModal');
-
-//     // Get the button that opens the modal
-//     var btn = document.getElementById("myBtn");
-
-//     // Get the <span> element that closes the modal
-//     var span = document.getElementsByClassName("close")[0];
-
-//     // When the user clicks the button, open the modal 
-//     btn.onclick = function() {
-//         modal.style.display = "block";
-//     }
-
-//     // When the user clicks on <span> (x), close the modal
-//     span.onclick = function() {
-//         modal.style.display = "none";
-//     }
-
-//     // When the user clicks anywhere outside of the modal, close it
-//     window.onclick = function(event) {
-//         if (event.target == modal) {
-//             modal.style.display = "none";
-//         }
-//     }
+$( document ).ready(function() {
+  // function move() {
+  // var parent = element.parentNode;
+  // var parent = $(this).parent().get(0);
+  // var parent = event.target; //correct, get the button
+  // alert(parent.tagName);
+  // var p = parent.parentNode; //correct, get the outer div
+  // alert(p.tagName);
+  // var e = p.children;
+  // alert(e.tagName);
+  // var elem = e[0];
+  // alert(elem.tagName);
+  // var width = 0;
+  // var id = setInterval(frame, 100);
+  // function frame() {
+  //   if (width >= 100) {
+  //     clearInterval(id);
+  //   } else {
+  //     width++; 
+  //     elem.style.width = width + '%'; 
+  //     elem.innerHTML = width * 1  + '%';
+  //   }
+  // }
+//   alert("lel");
 // }
 
-// fuction addNewElement(){
-//     var newDiv = document.createElement("div");
-//     var newChild = 
-//     document.body.appendChild(div);
-// }
-  $( function() {
     var dialog, form,
  
-      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
-      // emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      
       name = $( "#name" ),
       time = $( "#time" ),
       descrip = $( "#descrip" ),
       allFields = $( [] ).add( name ).add( time ).add( descrip ),
       tips = $( ".validateTips" );
- 
+      var count = 0;
     function updateTips( t ) {
       tips
         .text( t )
@@ -77,27 +67,64 @@
       var valid = true;
       allFields.removeClass( "ui-state-error" );
       tasks = document.getElementById("users-contain");
-      valid = valid && checkLength( name, "username", 3, 16 );
+      // valid = valid && checkLength( name, "username", 3, 16 );
       // valid = valid && checkLength( time, "time", 6, 80 );
       // valid = valid && checkLength( descrip, "descrip", 5, 16 );
  
       // valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
       // valid = valid && checkRegexp( time, emailRegex, "eg. 340" );
- 
-      if ( valid ) {
-        // $( "#users tbody" ).append( "<tr>" +
-        //   "<td>" + name.val() + "</td>" +
-        //   "<td>" + time.val() + "</td>" +
-        //   "<td>" + descrip.val() + "</td>" +
-        // "</tr>" );
+
         $("#users-contain").append("<div class=\"events.\"> <h3>"+name.val()+"</h3> </div>");
-        $("#users-contain").append('<div class="light-grey">'+
-    '<div id="myBar"  style="height:24px;width:0"></div>'+
-  '</div>'+
-  '<br>'+
-  '<button class="start-task" onclick="move()">Click Me</button>' );
+        var test = $('<div/>',{});
+        test.addClass("myProgress");
+        var test2 = $('<div/>',{});
+        test2.addClass("myBar");
+        test.append(test2);
+        var btn = $('<button/>',
+    {
+        text: 'Start',
+        value: 'start',
+        click: function (event) {
+          // alert(event.target.parentNode.tagName);
+          var elem = event.target.parentNode.firstChild;
+          // var width = event.element.width;
+          var width = 0;
+          if(event.target.value=='start'){
+          	// alert("mf");
+            var id = setInterval(frame,10000);
+          function frame() {
+            if (width >= 100) {
+              clearInterval(id);
+            } else {
+              width++; 
+              elem.style.width = width + "%"; 
+              elem.innerHTML = width * 1  + '%';
+            }
+          } 
+          event.target.value='pause';
+          event.target.innerHTML="Stop";
+          }
+          else{
+            event.target.value='start';
+            event.target.innerHTML="Start";
+            var current = elem.style.width;
+            var temp = elem.innerHTML;
+            elem.style.width = current;
+            elem.style.innerHTML = temp;
+          }
+          
+       }
+    });
+        btn.addClass("start-task");
+        test.append(btn);
+        $("#users-contain").append(test);
+
+  //       $("#users-contain").append('<div class="myProgress">'+
+  //   '<div class="myBar"></div>'+
+  // '<button type="button" class="start-task">Click Me</button>'+
+  //   '</div>' );
         dialog.dialog( "close" );
-      }
+      // }
       return valid;
     }
  
@@ -120,10 +147,22 @@
  
     form = dialog.find( "form" ).on( "submit", function( event ) {
       event.preventDefault();
-      addUser();
+      count=addUser(count);
     });
  
     $( "#create-user" ).button().on( "click", function() {
       dialog.dialog( "open" );
     });
-  } );
+
+    //The function used to select the corresponding div to increment
+  function showIt(element) {
+    var parent = element.parentNode;
+    alert(parent.id);
+    var content = parent.querySelector("div");
+    alert(content.id);
+  }
+  
+
+
+
+});

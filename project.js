@@ -32,6 +32,93 @@
 //     var newChild = 
 //     document.body.appendChild(div);
 // }
+
+$(document).ready(function() {
+    var time_h = prompt("For how many hours are you free?:", "Enter number of hours here");
+    var time_m = prompt("For how many minutes are you free?:", "Enter number of minutes here");
+    var time_to_use = (time_h * 3600) + (time_m * 60);
+
+    var display2 = document.querySelector('#time2'),
+    timer2 = new CountDownTimer(time_to_use);
+
+    timer2.onTick(format(display2)).start();
+
+    function format(display) {
+        return function (minutes, seconds) {
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+            display.textContent = minutes + ':' + seconds;
+        };
+    }
+});
+
+window.onload = function startTime() {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    m = addingZerosToNumbers(m);
+    s = addingZerosToNumbers(s);
+    document.getElementById('worldClock').innerHTML = h + ":" + m + ":" + s;
+    var t = setTimeout(startTime, 500);  
+}
+
+function CountDownTimer(duration, granularity) {
+  this.duration = duration;
+  this.granularity = granularity || 1000;
+  this.tickFtns = [];
+  this.running = false;
+};
+
+CountDownTimer.prototype.start = function() {
+  if (this.running) {
+    return;
+  }
+  this.running = true;
+  var start = Date.now(),
+      that = this,
+      diff, obj;
+
+  (function timer() {
+    diff = that.duration - (((Date.now() - start) / 1000) | 0);
+
+    if (diff > 0) {
+      setTimeout(timer, that.granularity);
+    } else {
+      diff = 0;
+      that.running = false;
+    }
+
+    obj = CountDownTimer.parse(diff);
+    that.tickFtns.forEach(function(ftn) {
+      ftn.call(this, obj.minutes, obj.seconds);
+    }, that);
+  }());
+};
+
+CountDownTimer.prototype.onTick = function(ftn) {
+  if (typeof ftn === 'function') {
+    this.tickFtns.push(ftn);
+  }
+  return this;
+};
+
+CountDownTimer.prototype.expired = function() {
+  return !this.running;
+};
+
+CountDownTimer.parse = function(seconds) {
+  return {
+    'minutes': (seconds / 60) | 0,
+    'seconds': (seconds % 60) | 0
+  };
+};
+
+function addingZerosToNumbers(i) {
+    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+    return i;
+};
+
   $( function() {
     var dialog, form,
  
